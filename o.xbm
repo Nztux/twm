@@ -1,0 +1,4 @@
+#define close1o_width 6
+#define close1o_height 6
+static unsigned char close1o_bits[] = {
+   0x0c, 0x1e, 0x3f, 0x3f, 0x1e, 0x0c };
