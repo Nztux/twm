@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=puro osx
+Comment=Low contrast and simple light theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=puro osx
+ButtonLayout=:minimize,maximize,close

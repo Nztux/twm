@@ -1,0 +1,183 @@
+#
+#  twm - Tab Window Manager for the X window system - Faat Fuut
+#
+NoDefaults
+DontMoveOff
+AutoRelativeResize
+NoGrabServer
+NoHighlight
+RandomPlacement
+RestartPreviousState
+#DecorateTransients
+opaqueMove
+NoMenuShadows
+IconifyByUnmapping
+BorderWidth 0
+IconManagerGeometry  "=70x6-15+15"
+MenuBorderWidth 11
+ShowIconManager
+SortIconManager
+NoTitleHighlight
+NoStackMode	
+#NoTitleFocus
+NoBackingStore
+TitleButtonBorderWidth 0
+ConstrainedMoveTime 200	
+
+IconDirectory "/root/Gambar/o" # Directory for non default icons
+#RightTitleButton "resize.xpm"=f.resize
+RightTitleButton "iconify.xbm"=f.iconify
+RightTitleButton "max.xbm"=f.fullzoom
+RightTitleButton "close.xbm"=f.delete
+
+
+#SqueezeTitle
+{
+	"rxvt"		right	0	0 
+	"gedit"		center	0	0
+	""	center	0	0
+}
+
+WindowRing			# f.warpring acts along these windows
+{
+    "XTerm"
+    "emacs"
+    "Xmh"
+}
+NoBorder
+{
+ 	"TWM Icon Manager"
+}
+Monochrome
+{
+    IconManagerHighlight  "white"
+    BorderColor "black"
+}
+AutoRaise
+{
+	"xtrek"
+	"TWM Icon Manager"
+	"xclock"
+	"xbiff"
+	"xeyes"
+}
+Cursors
+{
+	Menu	"pirates"
+}
+NoTitle
+{
+ "stalonetray"
+  "gnome-terminal"
+  "rxvt"
+  "TWM Icon Manager"
+}
+Color
+{
+    BorderColor "#97a090"
+    DefaultBackground "#0b1317"
+    DefaultForeground "#a899c1"
+    TitleBackground "#0b1317"
+    TitleForeground "#cf3a5e"
+    MenuBackground "#0b1317"
+    MenuForeground "#a899c1"
+    MenuBorderColor "#0b1317"
+    MenuTitleBackground "#0b1317"
+    MenuTitleForeground "#cf3a5e"
+    IconBackground "#0b1317"
+    IconForeground "#a899c1"
+    IconBorderColor "#0b1317"
+    IconManagerBackground "#0b1317"
+    IconManagerForeground "#a899c1"
+    IconManagerBorder "#0b1317"
+
+}
+TitleFont  "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+ResizeFont  "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+MenuFont   "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+IconFont   "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+IconManagerFont   "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+
+#
+# Define some useful functions for motion-based actions.
+#
+MoveDelta 3
+Function "move-or-lower" { f.move f.deltastop f.lower }
+Function "move-or-raise" { f.move f.deltastop f.raise }
+Function "move-or-iconify" { f.move f.deltastop f.iconify }
+
+#
+# Set some useful bindings.  Sort of uwm-ish, sort of simple-button-ish
+#
+"KP_Enter"	= mod5	: all			: f.colormap "default"
+"Left"		= m	: all			: f.backiconmgr
+Button1 = : root : f.menu "main"
+Button3	 = : root : f.menu "windowops"
+Button2	= m	: window			: f.resize
+"F1"	=	: w|t|i	: f.move
+"F2"    =	: w|t|i	: f.iconify
+"F3" = : all|root : f.exec "dmenu_run -b -i -p ' Yurika '  -w 370 -h 22 -x 12 -y 12 -nb '#0b1317' -sb '#cf3a5e' -sf '#efefef' -fn drift &"
+"F4"	=	: all	: f.exec "xfce4-terminal &"
+"F5"	=	: w|t|i	: f.fullzoom
+"F6"	=	: all	: f.exec "Thunar &"
+"F7" =    :all : f.exec "xbacklight -dec 5%- &"
+"F8" =    :all : f.exec "xbacklight -inc 5%- &"
+"F10"	=	: w|t|i	: f.delete
+
+Button1 = m : window|icon : f.function "move-or-lower"
+Button2 = m : window|icon : f.iconify
+Button3 = m : window|icon : f.function "move-or-raise"
+
+Button1 = : title : f.function "move-or-raise"
+Button2 = : title : f.raiselower
+
+Button1 = : icon : f.function "move-or-iconify"
+Button2 = : icon : f.iconify
+
+Button1 = : iconmgr : f.iconify
+Button2 = : iconmgr : f.iconify
+
+#
+# And a menus with the usual things
+#
+menu "main"
+{
+		"Root"	f.title
+                "Rxvt"        f.exec "rxvt -fn drift &"
+		"Show"	f.showiconmgr
+		"Hide"	f.hideiconmgr
+                "Gros  "	f.restart
+                "Exit"       f.quit
+}
+
+menu "Quit-Verify"
+{
+		"Really?"	f.title
+		"No,"	f.restart
+		"Yes,"	f.quit
+}
+
+menu "windowops"
+{
+		"Window Ops"		f.title
+		"Iconify"		f.iconify
+		"Resize"		f.resize
+		"Move"			f.move
+		"Raise"			f.raise
+		"Lower"			f.lower
+		"Focus"			f.focus
+		"Unfocus"		f.unfocus
+		"Delete"		f.delete
+		"Destroy"		f.destroy
+}
+
+# Automatically generated file. Do not edit (see /usr/share/doc/menu/html/index.html)
+
+menu "twmops"
+{
+"System"		f.title
+"Restart"		f.restart
+"Exit"		f.quit
+"xterm"			!"xterm &"
+"Kill"			f.menu "kill"
+}
