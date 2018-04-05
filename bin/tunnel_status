@@ -1,0 +1,30 @@
+#! /bin/bash
+
+BG1="#3f3f3f"
+BG2="#f9f9f9"
+FG1="#c3c3c3"
+FG2="#777777"
+
+FONT="-*-cure-*-*-*-*-11-*-*-*-*-*-*-*"
+YPOS="14"
+
+if [ $(( $(xdotool getmouselocation | awk -F " " '{print $2}' | cut -d ":" -f 2) > $YPOS )) ]; then
+XPOS="1467"
+else
+XPOS=$(( $(xdotool getmouselocation | awk -F " " '{print $1}' | cut -d ":" -f 2) - 175 ))
+fi
+
+HEIGHT="12"
+WIDTH="130"
+LINES="0"
+ALIGN="center"
+
+tunnel=`netstat -atn | grep ":11590"`
+if [ "$tunnel" == "" ]; then
+	$(ssh -p 8149 -ND 11590 diavorian@74.141.47.234) &
+	msg="Tunnel is turning on."
+else
+	msg="Tunnel is already on."
+fi
+
+(echo "$msg"; sleep 1.5) | dzen2 -bg $BG2 -fg $FG2 -fn $FONT -x $XPOS -y $YPOS -h $HEIGHT -w $WIDTH -sa $ALIGN -l $LINES -e 'onstart=uncollapse;button1=exit;button2=exit;button3=exit;button4=exit;button5=exit'

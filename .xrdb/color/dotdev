@@ -1,0 +1,31 @@
+!!URxvt Color Scheme
+*background:  #0C0C0C
+*foreground:  #D2C5BC
+
+URxvt.colorIT: #e8a282
+URxvt.colorUL: #9f9ca9
+
+! BLACK 
+*color0:  #525252
+*color8:  #707070 
+! RED 
+*color1:  #E8A282
+*color9:  #D86F6B
+! GREEN 
+*color2:  #94A65D 
+*color10: #BACD8F
+! YELLOW 
+*color3:  #A27766
+*color11: #C87F6B 
+! BLUE 
+*color4:  #607878
+*color12: #617c83 
+! MAGENTA 
+*color5:  #9F9CA9
+*color13: #B3A5B2 
+! CYAN 
+*color6:  #88AABB
+*color14: #AACCDD 
+! WHITE 
+*color7:  #D2D1D4
+*color15: #D6DAC3

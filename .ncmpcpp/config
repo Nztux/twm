@@ -4,7 +4,7 @@ ncmpcpp_directory = "~/.ncmpcpp"
 lyrics_directory = "~/.lyrics"
 mpd_host = "localhost"
 #
-mpd_port = "6602"
+mpd_port = "6600"
 #
 mpd_music_dir = "/home/faat/faatih-FILE/My-music1/"
 #
@@ -460,7 +460,9 @@ visualizer_color = "cyan"
 #
 active_window_border = "white"
 #
-mpd_host = "127.0.1.1"
-mpd_port = "6602"
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
 
+## you don't have dunst? maybe another notification daemon would work. doesn't work? comment the line below to disable sending notification attemps
+execute_on_song_change = notify-send "Now Playing ♫" "$(mpc current)"
 

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+i3lock                      \
+\
+--textcolor=b1b8c3ff        \
+--timecolor=b1b8c3ff        \
+--datecolor=6e918dff        \
+\
+--insidecolor=282828ff      \
+--ringcolor=222250ff        \
+--keyhlcolor=458588ff       \
+--bshlcolor=cc241dff        \
+--insidevercolor=458588ff   \
+--insidewrongcolor=cc241dff \
+--ringvercolor=83a598ff     \
+--ringwrongcolor=fb4934ff   \
+--line-uses-inside          \
+\ #--linecolor=665c54ff        \
+\
+--screen 0                  \
+--blur 5                    \
+--clock                     \
+--indicator                 \
+\
+--datestr="%A, %b %d"       \
+--timestr="%H:%M"           \
+\
+--wrongtext="incorrect"         \
+--show-failed-attempts

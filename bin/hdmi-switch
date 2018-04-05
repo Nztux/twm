@@ -1,0 +1,13 @@
+#! /bin/bash
+set -x
+
+udevadm settle --quiet --timeout=16
+
+hdmi_status=$(cat /sys/class/drm/card0-HDMI-A-1/status)
+alsa_dir=/etc/alsa
+asound_file=asound.hdmi-$hdmi_status
+
+if [[ -n $hdmi_status ]] && [[ -f "$alsa_dir/$asound_file" ]]; then
+    ln -sf "$alsa_dir/$asound_file" /etc/asound.conf
+    /etc/rc.d/alsa force-restart
+fi

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+BG="#222250"
+FG1="#b4b4b4"
+FG2="#d0d0d0"
+YPOS="16"
+red="#da637e"
+redb="#f0a3a3"
+blue="#7c96c9"
+blueb="#96b6d8"
+green="#7cc988"
+greenb="#b0deb7"
+cyan="#63918b"
+cyanb="#92b5b0"
+
+background="#222250"
+foreground="#eeeeee"
+highlight="#b4b4b4"
+
+FONT="lemon:size=8"
+TIMING="15"
+white0="#626e74"
+rescheck=`xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}'`
+
+bar_bg="#66666a"
+notify="#F39D21"
+warning="#D23D3D"

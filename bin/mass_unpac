@@ -1,0 +1,17 @@
+#!/bin/bash
+
+case $1 in
+  rar) export op="unrar"   ;;
+  zip) export op="unzip"   ;;
+  7z)  export op="7za e"   ;;
+  *)   echo "please input a supported archive type"&exit ;;
+esac
+
+arcs=`ls | grep $1`
+if [ "$arcs" = "" ]; then
+  echo "no archives found matching input"
+else
+  for i in *.$1;do
+    $op $i
+  done
+fi

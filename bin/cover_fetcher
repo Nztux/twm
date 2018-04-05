@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+art="$(mpc current -f %artist%)"
+alb="$(mpc current -f %album%)"
+
+cd ~/mu/thumbs
+
+data=$(curl \
+    --data-urlencode method=album.getinfo \
+    --data-urlencode api_key=2f63459bcb2578a277c5cf5ec4ca62f7 \
+    --data-urlencode artist=$art \
+    --data-urlencode album=$alb \
+    -G -s http://ws.audioscrobbler.com/2.0/)
+
+[[ $? > 0 ]] && echo 'Error: Unable to fetch album data!' && return 3
+
+setopt rematchpcre
+[[ $data =~ '<image size="large">([^<]+)</image>' ]] || { echo 'Error: No cover art found in album info.' && return 4 }
+
+artist="$(mpc current -f %artist% | sed -e 's/\//-/g' | sed -e 's/|/-/g' | sed -e 's/\://g' | sed -e 's/\*//g' | sed -e 's/(//g' | sed -e 's/)//g')"
+album="$(mpc current -f %album% | sed -e 's/\//-/g' | sed -e 's/|/-/g' | sed -e 's/\://g' |  sed -e 's/\[//g' | sed -e 's/\]//g' | sed -e 's/(//g' | sed -e 's/)//g')"
+
+1=${1:gs/\//_}
+2=${2:gs/\//_}
+
+echo 'Downloading and converting..'
+curl -s $match | convert - -resize 104x104 "$artist - $album.xpm"
+
+[[ $? == 0 ]] && echo 'All done!' && cd ~ || { echo 'Error fetching or converting..' && return 5 && cd ~ }

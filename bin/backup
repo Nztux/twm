@@ -1,0 +1,11 @@
+#!/bin/bash
+# requires pax
+
+export dotfiles=~/source/git-projects/dotfiles
+cd ~
+cp -Rvt $dotfiles/ .vimrc .vimperatorrc .zshrc .zsh_aliases .compton.conf .xmodmap .Xdefaults .xinitrc .tmux.conf .rtorrent.rc .mpdconf ~/bin ~/.ncmpcpp
+cp -Rvt $dotfiles/.vim ~/.vim/{bundle,plugin}
+cp -Rvt $dotfiles/.config/ ~/.config/awesome
+cp -Rvt $dotfiles/.config/ranger ~/.config/ranger/{colorschemes,rc.conf,rifle.conf,scope.sh}
+cp -Rvt $dotfiles/.irssi/ ~/.irssi/config ~/.irssi/phallus.theme ~/.irssi/vim_moderc ~/.irssi/scripts/autorun
+cp -Rvt $dotfiles/.vimperator/ ~/.vimperator/colors

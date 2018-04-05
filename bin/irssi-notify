@@ -1,0 +1,21 @@
+#!/bin/bash
+
+source ~/bin/d-conf
+
+LINES="1"
+HEIGHT="12"
+WIDTH="134"
+ALIGN="LEFT"
+
+while inotifywait ~/.irssi/fnotify >/dev/null 2>&1;do
+#fix me
+  res=`xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}'`
+  if [[ $res == "1600x900" ]]; then
+    XPOS="1460"
+    YPOS="882"
+  else
+    XPOS="1780"
+    YPOS="1062"
+  fi
+	echo "You have been highlighted!" | dzen2 -bg $BG -fn $FONT -x $XPOS -y $YPOS -w $WIDTH -h $HEIGHT -p 999 -e 'onstart=uncollapse;button1=exit;button3=exit'
+done

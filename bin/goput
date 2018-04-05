@@ -1,0 +1,5 @@
+#!/bin/bash
+URL="$(curl --progress-bar -i -F name=file -F file="@$@" http://goput.it/gp5/handle.php | grep -Eom 1 'http.?://goput\.it/[[:alnum:]]*\.(png|jpg|gif)')"
+echo "$URL"
+
+

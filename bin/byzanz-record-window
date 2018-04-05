@@ -1,0 +1,73 @@
+#!/bin/bash
+# Exit if anything fails
+set -e
+
+# Merges byzanz' help and this script's help
+usage() {
+    echo "$(byzanz-record $1)"
+    if [ "$1" != "--help-gtk" ]; then
+echo
+echo "Window Options:"
+        echo " -p, --padding=PIXEL Padding around the window to record (default: none)"
+    fi
+}
+
+# If $1 is not a number, exit 1
+isargvalid() {
+    if ! [[ "$1" =~ ^[0-9]+$ ]] ; then
+echo "Padding (-p/--padding) must be an integer (not $1)"
+        exit 1
+    fi
+}
+
+# Parse options
+while :
+do
+case $1 in
+        --help | --help-gtk | --help-all )
+            usage $1
+            exit 0
+            ;;
+        -p | --padding)
+            pad="$2"
+            isargvalid "$pad"
+            shift 2
+            ;;
+        --padding=*)
+            pad="${1#*=}"
+            isargvalid "$pad"
+            shift 1
+            ;;
+        '') # No more options to process
+            break
+            ;;
+        *) # Add option to list of opts that are passed to byzanz
+            byzanz_opts="${byzanz_opts} ${1}"
+            shift 1
+            ;;
+    esac
+done
+
+# Get stuff from xwininfo
+xwininfo=$(xwininfo -shape)
+
+getnum() {
+    echo "$xwininfo" | grep "$1" | tr -cd [:digit:]
+}
+
+x=$(getnum "Absolute upper-left X:")
+y=$(getnum "Absolute upper-left Y:")
+w=$(getnum "Width:")
+h=$(getnum "Height:")
+
+# Add padding if $pad exists
+if [ -n "$pad" ]; then
+    ((x=x-pad))
+    ((y=y-pad))
+    ((w=w+pad+pad))
+    ((h=h+pad+pad))
+fi
+
+# Record
+byzanz-record $byzanz_opts -x $x -y $y -w $w -h $h
+

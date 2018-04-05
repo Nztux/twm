@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+trim_method="roll"		# Can be {Trim or roll).
+max_len=20						# Trim output to this length.
+roll_speed=2					# Roll speed in chraacters per second.
+
+#taken from tmux-powerline
+roll_text() {
+	local text="$1"     # Text to print
+	if [ -z "$text" ]; then
+		return;
+	fi
+	local max_len="10"  # Default max length.
+	if [ -n "$2" ]; then
+		max_len="$2"
+	fi
+	local speed="1"     # Default roll speed in chars per second.
+	if [ -n "$3" ]; then
+		speed="$3"
+	fi
+	if [ "${#text}" -le "$max_len" ]; then
+		echo "$text"
+		return
+	fi
+	local offset=$((10#$(date +%s) * ${speed} % ${#text}))
+	text=${text:offset}
+	local char  # Character.
+	local bytes # The bytes of one character.
+	local index
+	for ((index=0; index < max_len; index++)); do
+		char=${text:index:1}
+		bytes=$(echo -n $char | wc -c)
+		if ((bytes > 1)); then
+			max_len=$((max_len - 1))
+		fi
+	done
+	text=${text:0:max_len}
+	local fill_count=$((${index} - ${#text}))
+	for ((index=0; index < fill_count; index++)); do
+		text="${text} "
+	done
+	echo "${text}"
+}
+
+
+mu_stat (){
+	if [ "`mpc 2>&1 | wc -l`" -gt "1" ]; then
+		artist=`mpc current -f %artist%`
+		title=`mpc current -f %title%`
+		if [ "`mpc | grep "^\[paused\]"`" != "" ]; then
+			mpd_current="$title by $artist"
+		else
+			mpd_current="$title by $artist "
+		fi
+	else
+	mpd_current="mpd [stopped] "
+	fi
+	case "$trim_method" in
+		"roll")
+			np=$(roll_text "$mpd_current" ${max_len} 1) ;;
+		"trim")
+			np=${np:0:max_len} ;;
+	esac
+	echo " ${np}"
+	exit 0
+}
+
+
+mu_icon (){
+	if [ "`mpc 2>&1 | wc -l`" -gt "1" ]; then
+		if [ "`mpc | grep "^\[paused\]"`" != "" ]; then
+			icon="⮔"
+		else
+			icon="⮓"
+		fi
+	else
+		icon="⮕"
+	fi
+	echo $icon
+}
+
+
+while getopts "sia" opt; do
+	case $opt in
+		i)      mu_icon ;;
+		s)      mu_stat ;;
+		a)      mu_icon && mu_stat ;;
+		*)      echo "not a valid option!" ;;
+	esac
+done

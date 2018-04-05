@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/stuff/linux-shimeji-master
+./launch.sh &

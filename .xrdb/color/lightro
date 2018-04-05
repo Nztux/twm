@@ -1,0 +1,53 @@
+*background: #F4E7D2
+*foreground: #050505
+!
+! --- standard colors ---
+!
+! white
+*color7: #151515
+!
+! bright_white
+*color15: #808080
+!
+
+! black
+*color0: #F4E7D2
+!
+! bright_black
+*color8: #707070
+!
+! red
+*color1: #C83362
+!
+! bright_red
+*color9: #AB2C54
+!
+! green
+*color2: #5AC833
+!
+! bright_green
+*color10: #4DAB2C
+!
+! yellow
+*color3: #FFAE05
+!
+! bright_yellow
+*color11: #EB9E00
+!
+! blue
+*color4: #6888AF
+!
+! bright_blue
+*color12: #5577A0
+!
+! magenta
+*color5: #24B28A
+!
+! bright_magenta
+*color13: #209D7A
+!
+! cyan
+*color6: #7E989A
+!
+! bright_cyan
+*color14: #7E989A

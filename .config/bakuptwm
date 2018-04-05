@@ -1,0 +1,436 @@
+
+#
+#  twm - Tab Window Manager for the X window system - Faat Fuut
+#
+
+AutoRelativeResize
+NoGrabServer
+NoHighlight
+RandomPlacement
+RestartPreviousState
+DecorateTransients
+opaqueMove
+NoMenuShadows
+IconifyByUnmapping
+SqueezeTitle
+BorderWidth 4
+IconManagerGeometry  "=100x6-11+35"
+MenuBorderWidth 11
+ShowIconManager
+NoTitleHighlight
+DecorateTransients
+NoStackMode	
+NoTitleFocus
+TitleButtonBorderWidth 1
+SqueezeTitle
+{
+	"gnome-terminal"		right	0	0 
+	"Xsol"		center	0	0
+	"Spider"	center	0	0
+}
+WindowRing			# f.warpring acts along these windows
+{
+    "XTerm"
+    "emacs"
+    "Xmh"
+}
+NoBorder
+{
+ 	"TWM Icon Manager"
+}
+Monochrome
+{
+    IconManagerHighlight  "white"
+    BorderColor "black"
+}
+AutoRaise
+{
+	"xtrek"
+	"TWM Icon Manager"
+	"xclock"
+	"xbiff"
+	"xeyes"
+}
+NoTitleIcon
+Cursors
+{
+	Menu	"No_ptr"
+}
+NoTitle
+#{
+  #"gedit"
+ # "gnome-terminal"
+  #"xload"
+  #"TWM Icon Manager"
+  #"xcutsel"
+#}
+Color
+{
+    BorderColor "#efefef"
+    DefaultBackground "#252a33"
+    DefaultForeground "#252a33"
+    TitleBackground "#252a33"
+    TitleForeground "#e8c87d"
+    MenuBackground "#252a33"
+    MenuForeground "#93a0af"
+    MenuBorderColor "#252a33"
+    MenuTitleBackground "#252a33"
+    MenuTitleForeground "#e8c87d"
+    IconBackground "#252a33"
+    IconForeground "#93a0af"
+    IconBorderColor "#252a33"
+    IconManagerBackground "#252a33"
+    IconManagerForeground "#93a0af"
+    IconManagerBorder "#252a33"
+
+}
+TitleFont  "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+ResizeFont  "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+MenuFont   "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+IconFont   "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+IconManagerFont   "-artwiz-Drift-medium-*-*-*-*-*-*-*-*-*-*-*"
+
+
+ {
+  "oclock"
+}
+
+#
+# Define some useful functions for motion-based actions.
+#
+MoveDelta 3
+Function "move-or-lower" { f.move f.deltastop f.lower }
+Function "move-or-raise" { f.move f.deltastop f.raise }
+Function "move-or-iconify" { f.move f.deltastop f.iconify }
+
+#
+# Set some useful bindings.  Sort of uwm-ish, sort of simple-button-ish
+#
+"KP_Enter"	= mod5	: all			: f.colormap "default"
+"Left"		= m	: all			: f.backiconmgr
+Button1 = : root : f.menu "main"
+Button3	 = : root : f.menu "windowops"
+Button2	= m	: window			: f.resize
+"F3" = : all|root : f.exec "dmenu_run -b -i -p 'Run That Shit >' -l 5 -w 230 -h 20 -x 1008 -y 612 -nb '#252a33' -sb '#efefef' -sf '#e8c87d' -fn drift &"
+"F5"	=	: w|t|i	: f.fullzoom
+"F1"	=	: w|t|i	: f.move
+"F2"    =	: w|t|i	: f.iconify
+"F10"	=	: w|t|i	: f.delete
+"F4"	=	: all	: f.exec "xfce4-terminal &"
+"F6"	=	: all	: f.exec "Thunar &"
+"F7" =    :all : f.exec "xbacklight -dec 5%- &"
+"F8" =    :all : f.exec "xbacklight -inc 5%- &"
+Button1 = m : window|icon : f.function "move-or-lower"
+Button2 = m : window|icon : f.iconify
+Button3 = m : window|icon : f.function "move-or-raise"
+
+Button1 = : title : f.function "move-or-raise"
+Button2 = : title : f.raiselower
+
+Button1 = : icon : f.function "move-or-iconify"
+Button2 = : icon : f.iconify
+
+Button1 = : iconmgr : f.iconify
+Button2 = : iconmgr : f.iconify
+
+#
+# And a menus with the usual things
+#
+menu "main"
+{
+		"Root"	f.title
+                "Bar"        f.exec "xmobar &"
+		"Show"	f.showiconmgr
+		"Hide"	f.hideiconmgr
+                "Gros  "	f.restart
+                "Exit"       f.quit
+}
+
+menu "Quit-Verify"
+{
+		"Really?"	f.title
+		"No,"	f.restart
+		"Yes,"	f.quit
+}
+
+menu "windowops"
+{
+		"Window Ops"		f.title
+		"Iconify"		f.iconify
+		"Resize"		f.resize
+		"Move"			f.move
+		"Raise"			f.raise
+		"Lower"			f.lower
+		"Focus"			f.focus
+		"Unfocus"		f.unfocus
+		"Delete"		f.delete
+		"Destroy"		f.destroy
+}
+
+# Automatically generated file. Do not edit (see /usr/share/doc/menu/html/index.html)
+
+menu "twmops"
+{
+"System"		f.title
+"Restart"		f.restart
+"Exit"		f.quit
+"xterm"			!"xterm &"
+"Kill"			f.menu "kill"
+}
+menu "/Debian/Aplikasi/Aksesibilitas"
+{
+  "Xmag"    f.exec  "xmag &"
+}
+menu "/Debian/Aplikasi/Editor"
+{
+  "Gedit"    f.exec  "/usr/bin/gedit &"
+  "MousePad"    f.exec  "/usr/bin/mousepad &"
+  "Nano"    f.exec  "x-terminal-emulator  -T \"Nano\" -e sh -c \"/bin/nano\" &"
+  "Xedit"    f.exec  "xedit &"
+}
+menu "/Debian/Aplikasi/Emulator Terminal"
+{
+  "Gnome Terminal"    f.exec  "/usr/bin/gnome-terminal &"
+  "Rxvt-Unicode"    f.exec  "rxvt-unicode &"
+  "Xfce Terminal"    f.exec  "/usr/bin/xfce4-terminal &"
+  "XTerm"    f.exec  "xterm &"
+  "X-Terminal as root (GKsu)"    f.exec  "/usr/bin/gksu -u root /usr/bin/x-terminal-emulator &"
+  "XTerm (Unicode)"    f.exec  "uxterm &"
+}
+menu "/Debian/Aplikasi/IPTEK/Matematika"
+{
+  "Bc"    f.exec  "x-terminal-emulator  -T \"Bc\" -e sh -c \"/usr/bin/bc\" &"
+  "Dc"    f.exec  "x-terminal-emulator  -T \"Dc\" -e sh -c \"/usr/bin/dc\" &"
+  "LibreOffice Math"    f.exec  "/usr/bin/libreoffice --math &"
+  "Xcalc"    f.exec  "xcalc &"
+}
+menu "/Debian/Aplikasi/IPTEK"
+{
+  "Matematika" f.menu "/Debian/Aplikasi/IPTEK/Matematika"
+}
+menu "/Debian/Aplikasi/Jaringan/Jelajah Situs"
+{
+  "Opera"    f.exec  "/usr/bin/opera &"
+  "w3m"    f.exec  "x-terminal-emulator  -T \"w3m\" -e sh -c \"/usr/bin/w3m /usr/share/doc/w3m/MANUAL.html\" &"
+}
+menu "/Debian/Aplikasi/Jaringan/Komunikasi"
+{
+  "Remmina"    f.exec  "/usr/bin/remmina &"
+  "Telnet"    f.exec  "x-terminal-emulator  -T \"Telnet\" -e sh -c \"/usr/bin/telnet\" &"
+  "Xbiff"    f.exec  "xbiff &"
+}
+menu "/Debian/Aplikasi/Jaringan"
+{
+  "Jelajah Situs" f.menu "/Debian/Aplikasi/Jaringan/Jelajah Situs"
+  "Komunikasi" f.menu "/Debian/Aplikasi/Jaringan/Komunikasi"
+}
+menu "/Debian/Aplikasi/Manajemen Berkas"
+{
+  "Brasero"    f.exec  "/usr/bin/brasero &"
+  "catfish"    f.exec  "catfish &"
+  "File-Roller"    f.exec  "/usr/bin/file-roller &"
+  "Nautilus"    f.exec  "/usr/bin/nautilus &"
+  "PyPar2"    f.exec  "/usr/bin/pypar2 &"
+  "Thunar"    f.exec  "/usr/bin/thunar &"
+  "Xfdesktop"    f.exec  "xfdesktop &"
+}
+menu "/Debian/Aplikasi/Manajemen Data"
+{
+  "LibreOffice Base"    f.exec  "/usr/bin/libreoffice --base &"
+}
+menu "/Debian/Aplikasi/Pemrograman"
+{
+  "GDB"    f.exec  "x-terminal-emulator  -T \"GDB\" -e sh -c \"/usr/bin/gdb\" &"
+  "IDLE (Python v3.4)"    f.exec  "/usr/bin/idle-python3.4 &"
+  "Python (v2.7)"    f.exec  "x-terminal-emulator  -T \"Python (v2.7)\" -e sh -c \"/usr/bin/python2.7\" &"
+  "Python (v3.4)"    f.exec  "x-terminal-emulator  -T \"Python (v3.4)\" -e sh -c \"/usr/bin/python3.4\" &"
+  "Tclsh8.6"    f.exec  "x-terminal-emulator  -T \"Tclsh8.6\" -e sh -c \"/usr/bin/tclsh8.6\" &"
+  "TkWish8.6"    f.exec  "x-terminal-emulator -e /usr/bin/wish8.6 &"
+}
+menu "/Debian/Aplikasi/Penampil Dokumen"
+{
+  "docker"    f.exec  "/usr/bin/wmdocker &"
+  "Evince"    f.exec  "/usr/bin/evince &"
+  "Xditview"    f.exec  "xditview &"
+}
+menu "/Debian/Aplikasi/Pendidikan"
+{
+  "Tux Typing"    f.exec  "/usr/games/tuxtype &"
+}
+menu "/Debian/Aplikasi/Pengolah Gambar"
+{
+  "ImageMagick"    f.exec  "/usr/bin/display.im6 logo: &"
+  "LibreOffice Draw"    f.exec  "/usr/bin/libreoffice --draw &"
+  "The GIMP"    f.exec  "/usr/bin/gimp &"
+  "xcb"    f.exec  "/usr/bin/xcb &"
+  "X Window Snapshot"    f.exec  "xwd | xwud &"
+}
+menu "/Debian/Aplikasi/Program Kantoran"
+{
+  "LibreOffice Calc"    f.exec  "/usr/bin/libreoffice --calc &"
+  "LibreOffice Impress"    f.exec  "/usr/bin/libreoffice --impress &"
+  "LibreOffice Writer"    f.exec  "/usr/bin/libreoffice --writer &"
+}
+menu "/Debian/Aplikasi/Shell"
+{
+  "Bash"    f.exec  "x-terminal-emulator  -T \"Bash\" -e sh -c \"/bin/bash --login\" &"
+  "Dash"    f.exec  "x-terminal-emulator  -T \"Dash\" -e sh -c \"/bin/dash -i\" &"
+  "Sh"    f.exec  "x-terminal-emulator  -T \"Sh\" -e sh -c \"/bin/sh --login\" &"
+  "Zsh"    f.exec  "x-terminal-emulator  -T \"Zsh\" -e sh -c \"/bin/zsh5\" &"
+}
+menu "/Debian/Aplikasi/Sistem/Administrasi Sistem"
+{
+  "bleachbit"    f.exec  "/usr/bin/bleachbit &"
+  "DSL/PPPoE configuration tool"    f.exec  "x-terminal-emulator  -T \"DSL/PPPoE configuration tool\" -e sh -c \"/usr/sbin/pppoeconf\" &"
+  "Editres"    f.exec  "editres &"
+  "Gnome Control Center"    f.exec  "/usr/bin/gnome-control-center &"
+  "GNOME partition editor"    f.exec  "su-to-root -X -c /usr/sbin/gparted &"
+  "LXAppearance"    f.exec  "/usr/bin/lxappearance &"
+  "menulibre"    f.exec  "menulibre &"
+  "mugshot"    f.exec  "/usr/bin/mugshot &"
+  "Network Admin"    f.exec  "/usr/bin/network-admin &"
+  "Openbox Configuration Manager"    f.exec  "/usr/bin/obconf &"
+  "pppconfig"    f.exec  "x-terminal-emulator  -T \"pppconfig\" -e sh -c \"su-to-root -p root -c /usr/sbin/pppconfig\" &"
+  "Services Admin"    f.exec  "/usr/bin/services-admin &"
+  "Shares Admin"    f.exec  "/usr/bin/shares-admin &"
+  "stalonetray"    f.exec  "/usr/bin/stalonetray &"
+  "Time Admin"    f.exec  "/usr/bin/time-admin &"
+  "UNetbootin"    f.exec  "/usr/bin/unetbootin &"
+  "User accounts Admin"    f.exec  "/usr/bin/users-admin &"
+  "Xclipboard"    f.exec  "xclipboard &"
+  "Xfce Application Finder"    f.exec  "xfce4-appfinder &"
+  "Xfontsel"    f.exec  "xfontsel &"
+  "Xkill"    f.exec  "xkill &"
+  "Xrefresh"    f.exec  "xrefresh &"
+}
+menu "/Debian/Aplikasi/Sistem/Keamanan Sistem"
+{
+  "light-locker-settings"    f.exec  "light-locker-settings &"
+}
+menu "/Debian/Aplikasi/Sistem/Manajemen Paket"
+{
+  "Synaptic Package Manager"    f.exec  "x-terminal-emulator -e synaptic-pkexec &"
+}
+menu "/Debian/Aplikasi/Sistem/Pemantauan"
+{
+  "Conky"    f.exec  "x-terminal-emulator  -T \"Conky\" -e sh -c \"/usr/bin/conky\" &"
+  "htop"    f.exec  "x-terminal-emulator  -T \"htop\" -e sh -c \"/usr/bin/htop\" &"
+  "Pstree"    f.exec  "x-terminal-emulator  -T \"Pstree\" -e sh -c \"/usr/bin/pstree.x11\" &"
+  "Top"    f.exec  "x-terminal-emulator  -T \"Top\" -e sh -c \"/usr/bin/top\" &"
+  "Xconsole"    f.exec  "xconsole -file /dev/xconsole &"
+  "Xev"    f.exec  "x-terminal-emulator -e xev &"
+  "Xload"    f.exec  "xload &"
+}
+menu "/Debian/Aplikasi/Sistem/Pengaturan Bahasa"
+{
+  "Input Method Configuration"    f.exec  "x-terminal-emulator  -T \"Input Method Configuration\" -e sh -c \"/usr/bin/im-config\" &"
+}
+menu "/Debian/Aplikasi/Sistem/Perangkat Keras"
+{
+  "ARandR"    f.exec  "arandr &"
+  "Xvidtune"    f.exec  "xvidtune &"
+}
+menu "/Debian/Aplikasi/Sistem"
+{
+  "Administrasi Sistem" f.menu "/Debian/Aplikasi/Sistem/Administrasi Sistem"
+  "Keamanan Sistem" f.menu "/Debian/Aplikasi/Sistem/Keamanan Sistem"
+  "Manajemen Paket" f.menu "/Debian/Aplikasi/Sistem/Manajemen Paket"
+  "Pemantauan" f.menu "/Debian/Aplikasi/Sistem/Pemantauan"
+  "Pengaturan Bahasa" f.menu "/Debian/Aplikasi/Sistem/Pengaturan Bahasa"
+  "Perangkat Keras" f.menu "/Debian/Aplikasi/Sistem/Perangkat Keras"
+}
+menu "/Debian/Aplikasi/Suara"
+{
+  "Audacious"    f.exec  "/usr/bin/audacious &"
+  "Audacity"    f.exec  "/usr/bin/audacity &"
+  "Deadbeef"    f.exec  "/usr/bin/deadbeef &"
+  "mp3blaster"    f.exec  "x-terminal-emulator  -T \"mp3blaster\" -e sh -c \"/usr/bin/mp3blaster\" &"
+  "ncmpcpp"    f.exec  "x-terminal-emulator  -T \"ncmpcpp\" -e sh -c \"/usr/bin/ncmpcpp\" &"
+  "pavucontrol"    f.exec  "/usr/bin/pavucontrol &"
+}
+menu "/Debian/Aplikasi/Teks"
+{
+  "Character map"    f.exec  "/usr/bin/gucharmap &"
+}
+menu "/Debian/Aplikasi/Video"
+{
+  "VLC media player"    f.exec  "/usr/bin/qvlc &"
+}
+menu "/Debian/Aplikasi"
+{
+  "Aksesibilitas" f.menu "/Debian/Aplikasi/Aksesibilitas"
+  "Editor" f.menu "/Debian/Aplikasi/Editor"
+  "Emulator Terminal" f.menu "/Debian/Aplikasi/Emulator Terminal"
+  "IPTEK" f.menu "/Debian/Aplikasi/IPTEK"
+  "Jaringan" f.menu "/Debian/Aplikasi/Jaringan"
+  "Manajemen Berkas" f.menu "/Debian/Aplikasi/Manajemen Berkas"
+  "Manajemen Data" f.menu "/Debian/Aplikasi/Manajemen Data"
+  "Pemrograman" f.menu "/Debian/Aplikasi/Pemrograman"
+  "Penampil Dokumen" f.menu "/Debian/Aplikasi/Penampil Dokumen"
+  "Pendidikan" f.menu "/Debian/Aplikasi/Pendidikan"
+  "Pengolah Gambar" f.menu "/Debian/Aplikasi/Pengolah Gambar"
+  "Program Kantoran" f.menu "/Debian/Aplikasi/Program Kantoran"
+  "Shell" f.menu "/Debian/Aplikasi/Shell"
+  "Sistem" f.menu "/Debian/Aplikasi/Sistem"
+  "Suara" f.menu "/Debian/Aplikasi/Suara"
+  "Teks" f.menu "/Debian/Aplikasi/Teks"
+  "Video" f.menu "/Debian/Aplikasi/Video"
+}
+menu "/Debian/Panduan"
+{
+  "Info"    f.exec  "x-terminal-emulator  -T \"Info\" -e sh -c \"info\" &"
+  "Xman"    f.exec  "xman &"
+  "yelp"    f.exec  "/usr/bin/yelp &"
+}
+menu "/Debian/Pengolah Window"
+{
+ "awesome" f.startwm "
+ "Openbox" f.startwm "
+ "Pekwm" f.startwm "
+ "Twm" f.startwm "
+ "XFwm" f.startwm "
+ "Xmonad" f.startwm "
+}
+menu "/Debian/Pengunci Layar/Kunci Layar"
+{
+  "Lock Screen (XScreenSaver)"    f.exec  "/usr/bin/xscreensaver-command -lock &"
+}
+menu "/Debian/Pengunci Layar/Simpan Layar"
+{
+  "Activate ScreenSaver (Next)"    f.exec  "/usr/bin/xscreensaver-command -next &"
+  "Activate ScreenSaver (Previous)"    f.exec  "/usr/bin/xscreensaver-command -prev &"
+  "Activate ScreenSaver (Random)"    f.exec  "/usr/bin/xscreensaver-command -activate &"
+  "Console Matrix (Text)"    f.exec  "x-terminal-emulator  -T \"Console Matrix (Text)\" -e sh -c \"/usr/bin/cmatrix\" &"
+  "Console Matrix (Virtual Console)"    f.exec  "x-terminal-emulator  -T \"Console Matrix (Virtual Console)\" -e sh -c \"/usr/bin/cmatrix -l\" &"
+  "Console Matrix (X11)"    f.exec  "/usr/bin/cmatrix -x &"
+  "Demo Screen Hacks"    f.exec  "/usr/bin/xscreensaver-command -demo &"
+  "Disable XScreenSaver"    f.exec  "/usr/bin/xscreensaver-command -exit &"
+  "Enable XScreenSaver"    f.exec  "/usr/bin/xscreensaver &"
+  "Reinitialize XScreenSaver"    f.exec  "/usr/bin/xscreensaver-command -restart &"
+  "ScreenSaver Preferences"    f.exec  "/usr/bin/xscreensaver-command -prefs &"
+}
+menu "/Debian/Pengunci Layar"
+{
+  "Kunci Layar" f.menu "/Debian/Pengunci Layar/Kunci Layar"
+  "Simpan Layar" f.menu "/Debian/Pengunci Layar/Simpan Layar"
+}
+menu "/Debian/Permainan/Mainan"
+{
+  "Oclock"    f.exec  "oclock &"
+  "Xclock (analog)"    f.exec  "xclock -analog &"
+  "Xclock (digital)"    f.exec  "xclock -digital -update 1 &"
+  "Xeyes"    f.exec  "xeyes &"
+  "Xlogo"    f.exec  "xlogo &"
+}
+menu "/Debian/Permainan"
+{
+  "Mainan" f.menu "/Debian/Permainan/Mainan"
+}
+menu "/Debian"
+{
+  "Aplikasi" f.menu "/Debian/Aplikasi"
+  "Panduan" f.menu "/Debian/Panduan"
+  "Pengolah Window" f.menu "/Debian/Pengolah Window"
+  "Pengunci Layar" f.menu "/Debian/Pengunci Layar"
+  "Permainan" f.menu "/Debian/Permainan"
+}

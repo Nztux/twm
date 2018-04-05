@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source ~/bin/d-conf
+
+name=$(date '+%Y-%m-%d-%R')
+place=$HOME/img/scrots
+YPOS2="865"
+XPOS="1524"
+LINES="1"
+HEIGHT="12"
+WIDTH="70"
+ALIGN="LEFT"
+TIMING="3"
+
+scrot -d3 $HOME/benis1.png
+#(echo "taking scrot…") | dzen2 -bg $BG -fn $FONT -x $XPOS -y $YPOS2 -w $WIDTH -h $HEIGHT -l 0 -p 5 -ta "center" -sa $ALIGN -e 'onstart=uncollapse;button1=exit;button2=exit;button3=exit;button4=exit;button5=exit' 
+pngcrush $HOME/benis1.png $HOME/benis.png
+rm $HOME/benis1.png
+cp benis.png $place/$name.png

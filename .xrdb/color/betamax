@@ -1,0 +1,41 @@
+! B E T A M A X
+! svbtext 2016
+
+! special
+*.foreground:   #2a2a20
+*.background:   #f5efd1
+! sun-bleached white bg
+!*.background:   #faeeb0
+*.cursorColor:  #2a2a20
+
+! black
+*.color0:       #b6a974
+*.color8:       #887f57
+
+! red
+*.color1:       #ebbe39
+*.color9:       #c39d2f
+
+! green
+*.color2:       #ea8235
+*.color10:      #c36c2c
+
+! yellow
+*.color3:       #df5029
+*.color11:      #c54724
+
+! blue
+*.color4:       #b4171e
+*.color12:      #9b141a
+
+! magenta
+*.color5:       #850f25
+*.color13:      #660c1d
+
+! cyan
+*.color6:       #550c27
+*.color14:      #39081a
+
+! white
+*.color7:       #421439
+*.color15:      #280c22

@@ -1,0 +1,9 @@
+if [[ $TERM != "linux" && $1 != "" ]]
+ then
+if [[ $0 == "urlview" ]]
+   then
+wget "$1" -q -O - | convert - -resize "$(tput cols)" - | img2xterm
+   else
+convert "$1" -resize "$(tput cols)" - | img2xterm
+  fi
+fi

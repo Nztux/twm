@@ -1,0 +1,78 @@
+#! /bin/bash
+
+read (){
+	cat ~/.todo | grep -v '# *'
+}
+
+add (){
+	text=$OPTARG
+	line=$(( $(sed = ~/.todo | sed 'N;s/\n/ /' | awk -F " " '{print $1}' | sed -n '$p') + 1 ))
+	if [ "$line" -le 9 ]; then
+		lin="0$line"
+	elif [ "$line" -ge 10 ]; then
+		lin="$line"
+	fi
+	item="$lin $text"
+	echo $item >> ~/.todo
+	echo "New task $line successfully added."
+}
+
+del (){
+	ent="$OPTARG"
+	if [ "$ent" -le 9 ]; then
+		it="0$ent"
+	elif [ "$ent" -ge 10 ]; then
+		it="$ent"
+	fi
+	lin="$it"
+	linn=`echo $(cat ~/.todo | awk -F " " '{print $1}' | grep $it)`
+	if [ "$linn" = "$lin" ];then
+		sed -e "/$lin/d" ~/.todo > ~/.todo-d
+		mv ~/.todo-d ~/.todo
+		echo "Task $lin successfully removed."
+	elif [ "$linn" != "$lin" ];then
+		echo "Sorry; I couldn't find that entry. ;_;"
+	fi
+}
+
+clear (){
+	touch ~/.todo-c
+	mv ~/.todo-c ~/.todo
+	echo "List successfully cleared."
+}
+
+help (){
+	echo "Usage: todo [-rceh] [-a entry] [-d line]"
+	echo " "
+	echo "A shitty CLI to-do list. Options are as follows."
+	echo "-r: Read; display the current list."
+	echo "-e: Edit; open ~/.todo with your editor."
+	echo "-a: Add; add a new entry to the list."
+	echo "-d: Delete; remove the entry by line specified from the list."
+	echo "-c: Clear; clear the list completely."
+	echo "-h: Help; open this page."
+	echo " "
+}
+
+while getopts ":hreca:d:" opt; do
+	case $opt in
+		h)
+			help ;; 
+		r)
+			read ;;
+		e)
+			$EDITOR ~/.todo ;;
+		a)
+			add ;;
+		d)
+			del ;;
+		c)
+			clear ;;
+		\?)
+			echo "I don't know what to do with $OPTARG!"
+			help ;;
+		:)
+			echo "Option -$OPTARG needs an argument!" >&2
+			help ;;
+	esac
+done

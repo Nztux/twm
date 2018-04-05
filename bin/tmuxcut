@@ -1,0 +1,16 @@
+#!/bin/bash
+
+msg=$(tmux display-message -p '#W' | cut -c -4)
+len=$(echo $msg | cut -f4 | xargs expr length)
+
+if [ $len -ge 4 ]; then
+  echo $msg
+else
+  if [ $len = 3 ]; then
+    echo " $msg"
+  elif [ $len = 2 ]; then
+    echo " $msg "
+  else
+    exit 0
+  fi
+fi
